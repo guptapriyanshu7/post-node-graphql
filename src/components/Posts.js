@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const POST_SUBSCRIPTION = gql`
   subscription {
@@ -54,8 +54,12 @@ function PostsPage() {
 
 function Posts(props) {
   const { subscribeToNewPosts } = props;
+  let isSubscribed = useRef(false);
   useEffect(() => {
-    subscribeToNewPosts();
+    if (!isSubscribed.current) {
+      subscribeToNewPosts();
+      isSubscribed.current = true;
+    }
   }, [subscribeToNewPosts]);
   if (props.loading) {
     return <p>Loading...</p>;
