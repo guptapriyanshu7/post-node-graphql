@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 const POST_SUBSCRIPTION = gql`
   subscription {

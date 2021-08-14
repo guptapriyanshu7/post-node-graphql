@@ -1,4 +1,3 @@
-import React from 'react';
 import { gql, useMutation } from '@apollo/client';
 
 const REGISTER = gql`
@@ -10,7 +9,7 @@ const REGISTER = gql`
 `;
 
 function Register() {
-  let email, name, password;
+  let emailEl, nameEl, passwordEl;
   const [register, { loading, error, data }] = useMutation(REGISTER);
   if (loading) {
     return <p>Loading...</p>;
@@ -22,13 +21,14 @@ function Register() {
     return <div>Successful</div>;
   }
   const onSubmitHandler = (e) => {
+    console.log(emailEl.value);
     e.preventDefault();
     register({
       variables: {
         userInput: {
-          email: email.value,
-          name: name.value,
-          password: password.value,
+          email: emailEl.value,
+          name: nameEl.value,
+          password: passwordEl.value,
         },
       },
     }).catch((err) => {});
@@ -36,9 +36,9 @@ function Register() {
   return (
     <div>
       <form onSubmit={onSubmitHandler}>
-        <input ref={(node) => (email = node)} />
-        <input ref={(node) => (name = node)} />
-        <input type='password' ref={(node) => (password = node)} />
+        <input ref={(node) => (emailEl = node)} />
+        <input ref={(node) => (nameEl = node)} />
+        <input type='password' ref={(node) => (passwordEl = node)} />
         <button type='submit'>Register</button>
       </form>
     </div>
