@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { gql, useMutation } from "@apollo/client";
 
 const REGISTER = gql`
   mutation Register($userInput: UserInputData!) {
@@ -38,8 +38,8 @@ function Register() {
       <form onSubmit={onSubmitHandler}>
         <input ref={(node) => (emailEl = node)} />
         <input ref={(node) => (nameEl = node)} />
-        <input type='password' ref={(node) => (passwordEl = node)} />
-        <button type='submit'>Register</button>
+        <input type="password" ref={(node) => (passwordEl = node)} />
+        <button type="submit">Register</button>
       </form>
     </div>
   );

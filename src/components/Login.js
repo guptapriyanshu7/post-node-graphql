@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { gql, useLazyQuery } from '@apollo/client';
+import { useState } from "react";
+import { gql, useLazyQuery } from "@apollo/client";
 
 const LOGIN = gql`
   query Login($email: String!, $password: String!) {
@@ -11,8 +11,8 @@ const LOGIN = gql`
 `;
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [login, { loading, error, data }] = useLazyQuery(LOGIN);
   if (loading) {
     return <p>Loading...</p>;
@@ -21,14 +21,14 @@ function Login() {
     return <p>Error :(</p>;
   }
   if (data) {
-    localStorage.setItem('token', data.login.token);
+    localStorage.setItem("token", data.login.token);
     return <div>Successful</div>;
   }
   return (
     <div>
-      <input type='text' onChange={(event) => setEmail(event.target.value)} />
+      <input type="text" onChange={(event) => setEmail(event.target.value)} />
       <input
-        type='password'
+        type="password"
         onChange={(event) => setPassword(event.target.value)}
       />
       <button
