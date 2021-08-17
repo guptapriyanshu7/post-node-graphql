@@ -1,5 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import { useEffect, useRef } from "react";
+import { Redirect, Link } from "react-router-dom";
 
 const POST_SUBSCRIPTION = gql`
   subscription {
@@ -65,13 +66,16 @@ function Posts(props) {
     return <p>Loading...</p>;
   }
   if (props.error) {
-    return <p>Error :(</p>;
+    if (props.error.message === "Not authenticated!")
+      return <Redirect to={{ pathname: "login" }} />;
+    return <p>Error :( {props.error.message}</p>;
   }
   const postsArr = props.data.getPosts.posts;
   return postsArr.map((post) => (
     <div key={post._id}>
       <h4>{post.title}</h4>
       <p>{post.content}</p>
+      <Link to={`/${post._id}`}>View</Link>
     </div>
   ));
 }

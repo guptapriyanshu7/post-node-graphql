@@ -1,4 +1,5 @@
 import { gql, useMutation } from "@apollo/client";
+import { Redirect } from "react-router-dom";
 
 const REGISTER = gql`
   mutation Register($userInput: UserInputData!) {
@@ -18,10 +19,9 @@ function Register() {
     return <p>Error: {error.message}</p>;
   }
   if (data) {
-    return <div>Successful</div>;
+    return <Redirect to={{ pathname: "/login" }} />;
   }
   const onSubmitHandler = (e) => {
-    console.log(emailEl.value);
     e.preventDefault();
     register({
       variables: {
