@@ -7,15 +7,15 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  HttpLink,
   split,
 } from "@apollo/client";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter } from "react-router-dom";
+import { createUploadLink } from "apollo-upload-client";
 
-const httpLink = new HttpLink({
+const httpLink = createUploadLink({
   uri: "http://localhost:8080/graphql",
 });
 

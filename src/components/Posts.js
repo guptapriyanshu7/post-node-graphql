@@ -1,6 +1,7 @@
-import { gql, useQuery } from "@apollo/client";
-import { useEffect, useRef } from "react";
+import { gql, useQuery, useMutation } from "@apollo/client";
+import { useEffect, useRef, useState } from "react";
 import { Redirect, Link } from "react-router-dom";
+import Status from "./Status";
 
 const POST_SUBSCRIPTION = gql`
   subscription {
@@ -25,31 +26,40 @@ const POSTS = gql`
   }
 `;
 
+const DELETEPOST = gql`
+  mutation DeletePost($id: ID!) {
+    deletePost(id: $id)
+  }
+`;
+
 function PostsPage() {
   const { subscribeToMore, ...result } = useQuery(POSTS);
   return (
-    <Posts
-      {...result}
-      subscribeToNewPosts={() =>
-        subscribeToMore({
-          document: POST_SUBSCRIPTION,
-          updateQuery: (prev, { subscriptionData }) => {
-            if (!subscriptionData.data) return prev;
-            const newPostItem = subscriptionData.data.postCreated;
-            const updatePostsArray = [...prev.getPosts.posts, newPostItem];
-            const updateTotalPosts = prev.getPosts.totalPosts + 1;
-            return {
-              ...prev,
-              getPosts: {
-                ...prev.getPosts,
-                posts: updatePostsArray,
-                totalPosts: updateTotalPosts,
-              },
-            };
-          },
-        })
-      }
-    />
+    <div>
+      <Status />
+      <Posts
+        {...result}
+        subscribeToNewPosts={() =>
+          subscribeToMore({
+            document: POST_SUBSCRIPTION,
+            updateQuery: (prev, { subscriptionData }) => {
+              if (!subscriptionData.data) return prev;
+              const newPostItem = subscriptionData.data.postCreated;
+              const updatePostsArray = [...prev.getPosts.posts, newPostItem];
+              const updateTotalPosts = prev.getPosts.totalPosts + 1;
+              return {
+                ...prev,
+                getPosts: {
+                  ...prev.getPosts,
+                  posts: updatePostsArray,
+                  totalPosts: updateTotalPosts,
+                },
+              };
+            },
+          })
+        }
+      />
+    </div>
   );
 }
 
@@ -67,15 +77,33 @@ function Posts(props) {
   }
   if (props.error) {
     if (props.error.message === "Not authenticated!")
-      return <Redirect to={{ pathname: "login" }} />;
+      return <Redirect to="/login" />;
     return <p>Error :( {props.error.message}</p>;
   }
   const postsArr = props.data.getPosts.posts;
+  return <PostsMap posts={postsArr} />;
+}
+
+function PostsMap({ posts }) {
+  const [deletePost, { loading, error }] = useMutation(DELETEPOST);
+  const [postsArr, setPostsArr] = useState(posts);
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+  if (error) {
+    return <p>Error :(</p>;
+  }
+  const deleteHandler = (id) => {
+    deletePost({ variables: { id: id } }).catch((err) => {});
+    const updatedPostsArr = postsArr.filter((post) => post._id !== id);
+    setPostsArr(updatedPostsArr);
+  };
   return postsArr.map((post) => (
     <div key={post._id}>
       <h4>{post.title}</h4>
       <p>{post.content}</p>
-      <Link to={`/${post._id}`}>View</Link>
+      <Link to={`/${post._id}`}>View</Link>{" "}
+      <button onClick={() => deleteHandler(post._id)}>Delete</button>
     </div>
   ));
 }

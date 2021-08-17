@@ -5,6 +5,7 @@ import Posts from "./components/Posts";
 import { Link, Route, Switch, useHistory } from "react-router-dom";
 import { useState } from "react";
 import SinglePost from "./components/SinglePost";
+import CreatePost from "./components/CreatePost";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -20,6 +21,9 @@ function App() {
       </Route>
       <Route path="/signup" exact>
         <Register />
+      </Route>
+      <Route path="/create" exact>
+        <CreatePost />
       </Route>
       <Route path="/:id" exact>
         <SinglePost />
@@ -38,7 +42,10 @@ function App() {
     <div className="App">
       <h1>Hello World</h1>
       {auth ? (
-        <button onClick={logOutHandler}>Logout</button>
+        <div>
+          <button onClick={logOutHandler}>Logout</button>{" "}
+          <Link to="/create">Create</Link>
+        </div>
       ) : (
         <div>
           <Link to="/login">Login</Link> <Link to="/signup">Sign Up</Link>
