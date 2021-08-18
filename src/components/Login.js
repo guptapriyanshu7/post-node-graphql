@@ -30,7 +30,7 @@ function Login({ setAuth }) {
   if (data) {
     localStorage.setItem("token", data.login.token);
     authSuccess.current = true;
-    return <Redirect to={{ pathname: "/" }} />;
+    return <Redirect to="/" />;
   }
   return (
     <div>

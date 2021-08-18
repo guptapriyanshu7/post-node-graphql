@@ -19,7 +19,7 @@ function Register() {
     return <p>Error: {error.message}</p>;
   }
   if (data) {
-    return <Redirect to={{ pathname: "/login" }} />;
+    return <Redirect to="/login" />;
   }
   const onSubmitHandler = (e) => {
     e.preventDefault();

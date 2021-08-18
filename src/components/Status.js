@@ -4,6 +4,7 @@ import React from "react";
 const STATUS = gql`
   query {
     user {
+      _id
       status
     }
   }

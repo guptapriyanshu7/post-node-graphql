@@ -1,6 +1,6 @@
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { useEffect, useRef, useState } from "react";
-import { Redirect, Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Status from "./Status";
 
 const POST_SUBSCRIPTION = gql`
@@ -86,8 +86,6 @@ function Posts(props) {
     return <p>Loading...</p>;
   }
   if (props.error) {
-    if (props.error.message === "Not authenticated!")
-      return <Redirect to="/login" />;
     return <p>Error :( {props.error.message}</p>;
   }
   const postsArr = props.data.getPosts.posts;

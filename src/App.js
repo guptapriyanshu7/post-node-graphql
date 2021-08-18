@@ -7,18 +7,34 @@ import { useState } from "react";
 import SinglePost from "./components/SinglePost";
 import CreatePost from "./components/CreatePost";
 import EditPost from "./components/EditPost";
+import { gql, useQuery } from "@apollo/client";
+
+const STATUS = gql`
+  query {
+    user {
+      _id
+      name
+    }
+  }
+`;
 
 function App() {
-  const token = localStorage.getItem("token");
-  const [auth, setAuth] = useState(token ? true : false);
+  let { loading, error, data } = useQuery(STATUS);
+  const [loggedIn, setLoggedIn] = useState(true);
   const history = useHistory();
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+  if (error) {
+    history.push("/login");
+  }
   const routes = (
     <Switch>
       <Route path="/" exact>
         <Posts />
       </Route>
       <Route path="/login" exact>
-        <Login setAuth={setAuth} />
+        <Login setAuth={setLoggedIn} />
       </Route>
       <Route path="/signup" exact>
         <Register />
@@ -39,16 +55,17 @@ function App() {
   );
   const logOutHandler = (e) => {
     localStorage.removeItem("token");
-    setAuth(false);
+    setLoggedIn(false);
     history.push("/login");
   };
   return (
     <div className="App">
       <h1>Hello World</h1>
-      {auth ? (
+      {loggedIn && data ? (
         <div>
           <button onClick={logOutHandler}>Logout</button>{" "}
           <Link to="/create">Create</Link>
+          <p>{data.user.name}</p>
         </div>
       ) : (
         <div>
