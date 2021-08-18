@@ -32,8 +32,12 @@ function SinglePost() {
     <div>
       <h1>{data.post.title}</h1>
       <p>{data.post.creator.name}</p>
+      <img
+        src={`http://localhost:8080/images/${data.post.imageUrl}`}
+        alt=""
+        style={{ width: "400px", height: "400px" }}
+      />
       <p>{data.post.content}</p>
-      <img src={`http://localhost:8080/images/${data.post.imageUrl}`} alt="" />
     </div>
   );
 }

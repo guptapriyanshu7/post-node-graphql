@@ -1,6 +1,6 @@
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { useEffect, useRef, useState } from "react";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect, Link, useLocation } from "react-router-dom";
 import Status from "./Status";
 
 const POST_SUBSCRIPTION = gql`
@@ -14,8 +14,8 @@ const POST_SUBSCRIPTION = gql`
 `;
 
 const POSTS = gql`
-  {
-    getPosts(page: 1) {
+  query GetPosts($page: Int) {
+    getPosts(page: $page) {
       totalPosts
       posts {
         _id
@@ -33,7 +33,15 @@ const DELETEPOST = gql`
 `;
 
 function PostsPage() {
-  const { subscribeToMore, ...result } = useQuery(POSTS);
+  const query = new URLSearchParams(useLocation().search);
+  let page = query.get("page");
+  page = parseInt(page);
+  if (!page || page < 1) {
+    page = 1;
+  }
+  const { subscribeToMore, ...result } = useQuery(POSTS, {
+    variables: { page: page },
+  });
   return (
     <div>
       <Status />
@@ -59,6 +67,8 @@ function PostsPage() {
           })
         }
       />
+      <Link to={`/?page=${page - 1}`}>Previous Page</Link>{" "}
+      <Link to={`/?page=${page + 1}`}>Next Page</Link>
     </div>
   );
 }
@@ -103,7 +113,8 @@ function PostsMap({ posts }) {
       <h4>{post.title}</h4>
       <p>{post.content}</p>
       <Link to={`/${post._id}`}>View</Link>{" "}
-      <button onClick={() => deleteHandler(post._id)}>Delete</button>
+      <button onClick={() => deleteHandler(post._id)}>Delete</button>{" "}
+      <Link to={`/edit/${post._id}`}>Edit</Link>
     </div>
   ));
 }

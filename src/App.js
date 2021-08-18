@@ -6,6 +6,7 @@ import { Link, Route, Switch, useHistory } from "react-router-dom";
 import { useState } from "react";
 import SinglePost from "./components/SinglePost";
 import CreatePost from "./components/CreatePost";
+import EditPost from "./components/EditPost";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -27,6 +28,9 @@ function App() {
       </Route>
       <Route path="/:id" exact>
         <SinglePost />
+      </Route>
+      <Route path="/edit/:id" exact>
+        <EditPost />
       </Route>
       <Route path="*">
         <div>404</div>
