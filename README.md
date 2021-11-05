@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+# Post Node
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![GitHub issues](https://img.shields.io/github/issues/guptapriyanshu7/post-node-graphql?style=for-the-badge)](https://github.com/guptapriyanshu7/post-node-graphql/issues)
+[![GitHub stars](https://img.shields.io/github/stars/guptapriyanshu7/post-node-graphql?style=for-the-badge)](https://github.com/guptapriyanshu7/post-node-graphql/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/guptapriyanshu7/post-node-graphql?style=for-the-badge)](https://github.com/guptapriyanshu7/post-node-graphql/network)
+[![GitHub license](https://img.shields.io/github/license/guptapriyanshu7/post-node-graphql?style=for-the-badge)](https://github.com/guptapriyanshu7/post-node-graphql/blob/main/LICENSE)
 
-## Available Scripts
+> This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-In the project directory, you can run:
+## Features
+- Set your current status.
+- View other users' posts.
+- Create your post with image.
+- Edit/Delete post.
 
-### `npm start`
+# Tools
+- Node.js, Apollo Client, React.js
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Folder Structure 
+```
+post-node-graphql
+├───public (Static HTML content.)
+├───src (React specific folders.)
+    ├───components (React components.)
+└───package.json (Packages required.)
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Local Setup
 
-### `npm test`
+- Setup backend, follow instruction in https://github.com/guptapriyanshu7/graphql#local-setup
+- Clone this repo: `git clone https://github.com/guptapriyanshu7/post-node-graphql`
+- Run `npm install`
+- Start the server: `npm start`
+- Website will be automatically opened up on your default browser.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# License
+This project is licensed under the MIT License, © 2021 Priyanshu Gupta. See [LICENSE](https://github.com/guptapriyanshu7/post-node-graphql/blob/main/LICENSE) for more details.
