@@ -14,6 +14,7 @@ import { WebSocketLink } from "@apollo/client/link/ws";
 import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter } from "react-router-dom";
 import { createUploadLink } from "apollo-upload-client";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const httpLink = createUploadLink({
   uri: "http://localhost:8080/graphql",
@@ -57,7 +58,9 @@ ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <BrowserRouter>
-        <App />
+        <ChakraProvider>
+          <App />
+        </ChakraProvider>
       </BrowserRouter>
     </ApolloProvider>
   </React.StrictMode>,

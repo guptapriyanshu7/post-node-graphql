@@ -8,6 +8,8 @@ import SinglePost from "./components/SinglePost";
 import CreatePost from "./components/CreatePost";
 import EditPost from "./components/EditPost";
 import { gql, useQuery } from "@apollo/client";
+import ThemeToggler from "./components/ThemeToggler";
+import { Heading } from "@chakra-ui/layout";
 
 const STATUS = gql`
   query {
@@ -56,11 +58,12 @@ function App() {
   const logOutHandler = (e) => {
     localStorage.removeItem("token");
     setLoggedIn(false);
-    history.push("/login");
+    history.replace("/login");
   };
   return (
     <div className="App">
-      <h1>Hello World</h1>
+      <Heading>PostNode</Heading>
+      <ThemeToggler />
       {loggedIn && data ? (
         <div>
           <button onClick={logOutHandler}>Logout</button>{" "}
@@ -69,7 +72,7 @@ function App() {
         </div>
       ) : (
         <div>
-          <Link to="/login">Login</Link> <Link to="/signup">Sign Up</Link>
+          {/* <Link to="/login">Login</Link> <Link to="/signup">Sign Up</Link> */}
         </div>
       )}
       {routes}
