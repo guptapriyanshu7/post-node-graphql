@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { gql, useLazyQuery } from "@apollo/client";
 import { Link as ReactRouterLink, Redirect } from "react-router-dom";
 import {
-  Flex,
   Box,
   Heading,
   FormControl,
@@ -16,6 +15,8 @@ import {
   AlertIcon,
   AlertDescription,
   Link,
+  Center,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
@@ -28,30 +29,39 @@ const LOGIN = gql`
   }
 `;
 
-function Login({ setAuth }) {
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const [login, { loading, error, data }] = useLazyQuery(LOGIN);
 
-  let authSuccess = useRef(false);
+  const bg = useColorModeValue("gray.50", "gray.700");
 
-  useEffect(() => {
-    return () => {
-      setAuth(authSuccess.current);
-    };
-  }, [setAuth]);
+  // let authSuccess = useRef(false);
+
+  // useEffect(() => {
+  //   return () => {
+  //     setAuth(authSuccess.current);
+  //   };
+  // }, [setAuth]);
 
   if (data) {
     localStorage.setItem("token", data.login.token);
-    authSuccess.current = true;
+    // authSuccess.current = true;
     return <Redirect to="/" />;
   }
 
   return (
-    <Flex justifyContent="center">
-      <Box p={8} borderWidth={1} borderRadius={8} boxShadow="lg" width="md">
+    <Center>
+      <Box
+        bg={bg}
+        p={8}
+        borderWidth={1}
+        borderRadius={8}
+        boxShadow="lg"
+        width="md"
+      >
         <Box>
           <Heading>Login</Heading>
         </Box>
@@ -114,7 +124,7 @@ function Login({ setAuth }) {
           </Link>
         </Box>
       </Box>
-    </Flex>
+    </Center>
   );
 }
 

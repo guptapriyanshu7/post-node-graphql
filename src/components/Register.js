@@ -2,7 +2,6 @@ import { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { Link as ReactRouterLink, Redirect } from "react-router-dom";
 import {
-  Flex,
   Box,
   Heading,
   FormControl,
@@ -16,6 +15,8 @@ import {
   AlertIcon,
   AlertDescription,
   Link,
+  Center,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
@@ -33,6 +34,8 @@ function Register() {
   const [showPassword, setShowPassword] = useState(false);
 
   const [register, { loading, error, data }] = useMutation(REGISTER);
+
+  const bg = useColorModeValue("gray.50", "gray.700");
 
   if (data) {
     return <Redirect to="/login" />;
@@ -52,8 +55,15 @@ function Register() {
   };
 
   return (
-    <Flex justifyContent="center">
-      <Box p={8} borderWidth={1} borderRadius={8} boxShadow="lg" width="md">
+    <Center>
+      <Box
+        bg={bg}
+        p={8}
+        borderWidth={1}
+        borderRadius={8}
+        boxShadow="lg"
+        width="md"
+      >
         <Box>
           <Heading>Signup</Heading>
         </Box>
@@ -119,7 +129,7 @@ function Register() {
           </Link>
         </Box>
       </Box>
-    </Flex>
+    </Center>
   );
 }
 
