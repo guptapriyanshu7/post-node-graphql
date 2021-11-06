@@ -1,6 +1,16 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
 import { useParams } from "react-router";
+import {
+  Center,
+  Container,
+  Heading,
+  Box,
+  Text,
+  VStack,
+  Stack,
+} from "@chakra-ui/layout";
+import { Image } from "@chakra-ui/image";
 
 const SINGLEPOST = gql`
   query SinglePost($id: ID!) {
@@ -11,6 +21,7 @@ const SINGLEPOST = gql`
       creator {
         name
       }
+      createdAt
     }
   }
 `;
@@ -29,16 +40,23 @@ function SinglePost() {
     return <p>Error :(</p>;
   }
   return (
-    <div>
-      <h1>{data.post.title}</h1>
-      <p>{data.post.creator.name}</p>
-      <img
+    <Stack spacing={12}>
+      <Box>
+        <Heading>{data.post.title}</Heading>- Created by{" "}
+        <b style={{ color: "teal" }}>{data.post.creator.name}</b> on{" "}
+        {new Date(data.post.createdAt).toLocaleDateString("en-IN")}
+      </Box>
+      <Image
         src={`http://localhost:8080/images/${data.post.imageUrl}`}
-        alt=""
-        style={{ width: "400px", height: "400px" }}
+        boxSize="md"
+        alignSelf="center"
       />
-      <p>{data.post.content}</p>
-    </div>
+      <Box px={12} pb={8}>
+        <Text as="pre" align="start" whiteSpace="pre-line">
+          {data.post.content}
+        </Text>
+      </Box>
+    </Stack>
   );
 }
 

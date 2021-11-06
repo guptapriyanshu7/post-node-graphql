@@ -15,7 +15,7 @@ import CreatePost from "./components/CreatePost";
 import EditPost from "./components/EditPost";
 import { gql, useQuery } from "@apollo/client";
 import ThemeToggler from "./components/ThemeToggler";
-import { Flex, Heading, Box, Link } from "@chakra-ui/layout";
+import { Flex, Heading, Box, Link, HStack } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
 import { useEffect } from "react";
 
@@ -74,20 +74,22 @@ function App() {
 
   return (
     <div className="App">
-      <Flex justifyContent="space-between" p={4} mb={16}>
-        <Heading as={ReactrouterLink} to="/">
+      <Flex justifyContent="space-between" p={4} mb={12}>
+        <Heading as={ReactrouterLink} to="/" color="teal">
           PostNode
         </Heading>
-        <ThemeToggler />
-        {data && (
-          <Box>
-            <Link as={ReactrouterLink} to="/create" color="teal">
-              Create
-            </Link>{" "}
-            <b>{data.user.name}</b>{" "}
-            <Button onClick={logOutHandler}>Logout</Button>
-          </Box>
-        )}
+        <HStack experimental_spaceX={8}>
+          <ThemeToggler />
+          {data && (
+            <>
+              <Link as={ReactrouterLink} to="/create" color="teal">
+                Create
+              </Link>
+              <b>{data.user.name}</b>
+              <Button onClick={logOutHandler}>Logout</Button>
+            </>
+          )}
+        </HStack>
       </Flex>
       {routes}
     </div>

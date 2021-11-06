@@ -154,7 +154,7 @@ function EditForm({ id, title, content, previousimageUrl }) {
                 defaultValue={content}
               />
             </FormControl>
-            <FormControl isRequired mt={6}>
+            <FormControl mt={6}>
               <FormLabel>Image</FormLabel>
               <Input
                 p={2}
@@ -182,7 +182,7 @@ function EditForm({ id, title, content, previousimageUrl }) {
               width="full"
               mt={6}
             >
-              Create
+              Save
             </Button>
           </form>
         </Box>

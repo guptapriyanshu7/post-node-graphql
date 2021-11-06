@@ -1,4 +1,7 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
+import { Button } from "@chakra-ui/button";
+import { Input } from "@chakra-ui/input";
+import { Center, HStack, Spacer } from "@chakra-ui/layout";
 import React from "react";
 
 const STATUS = gql`
@@ -30,17 +33,20 @@ function Status() {
     return <p>Error: {error.message}</p>;
   }
   return (
-    <div>
-      <input
+    <Center>
+      <Input
+        variant="filled"
+        width="md"
         ref={(node) => (statusEl = node)}
         defaultValue={data.user.status}
       />
-      <button
+      <Button
         onClick={() => updateStatus({ variables: { status: statusEl.value } })}
+        ms="1rem"
       >
         Update
-      </button>
-    </div>
+      </Button>
+    </Center>
   );
 }
 
