@@ -59,6 +59,7 @@ const DELETEPOST = gql`
 function PostsPage() {
   const { subscribeToMore, ...result } = useQuery(POSTS, {
     variables: { page: 1 },
+    fetchPolicy: "network-only",
   });
   return (
     <Box>
@@ -124,9 +125,9 @@ function PostsMap({ posts }) {
   const [postsArr, setPostsArr] = useState(posts);
   const bg = useColorModeValue("gray.50", "gray.700");
 
-  // useEffect(() => {
-  //   setPostsArr(posts);
-  // }, [posts]);
+  useEffect(() => {
+    setPostsArr(posts);
+  }, [posts]);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -145,27 +146,16 @@ function PostsMap({ posts }) {
   return postsArr.map((post) => (
     <Center mt={6} key={post._id}>
       <HStack
-        width="6xl"
+        width="4xl"
         bg={bg}
         borderWidth={1}
         borderRadius={8}
         boxShadow="lg"
       >
-        <Box
-          overflow="hidden"
-          borderStartRadius={8}
-          maxH={52}
-          minH={52}
-          maxW={52}
-          minW={52}
-        >
+        <Box overflow="hidden" borderStartRadius={8}>
           <Image
             src={`http://localhost:8080/images/${post.imageUrl}`}
-            maxH={52}
-            minH={52}
-            maxW={52}
-            minW={52}
-            boxSize="sm"
+            boxSize={40}
             _hover={{ transform: "scale(1.05)" }}
             transitionDuration="0.5s"
             overflow="hidden"
