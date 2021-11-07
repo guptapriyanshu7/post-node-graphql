@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { gql, useLazyQuery } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import { Link as ReactRouterLink, Redirect } from "react-router-dom";
 import {
   Box,
@@ -21,7 +21,7 @@ import {
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 const LOGIN = gql`
-  query Login($email: String!, $password: String!) {
+  mutation Login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       token
       userId
@@ -34,7 +34,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const [login, { loading, error, data }] = useLazyQuery(LOGIN);
+  const [login, { loading, error, data }] = useMutation(LOGIN);
 
   const bg = useColorModeValue("gray.50", "gray.700");
 

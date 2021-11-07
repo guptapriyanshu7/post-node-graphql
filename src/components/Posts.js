@@ -113,7 +113,6 @@ function Posts(props) {
   }
 
   const postsArr = props.data.getPosts.posts;
-  console.log(postsArr);
 
   return <PostsMap posts={postsArr} />;
 }

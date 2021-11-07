@@ -6,18 +6,16 @@ import {
   Link as ReactrouterLink,
   Route,
   Switch,
-  // useHistory,
   Redirect,
 } from "react-router-dom";
-// import { useState } from "react";
 import SinglePost from "./components/SinglePost";
 import CreatePost from "./components/CreatePost";
 import EditPost from "./components/EditPost";
 import { gql, useQuery } from "@apollo/client";
 import ThemeToggler from "./components/ThemeToggler";
-import { Flex, Heading, Link, HStack } from "@chakra-ui/layout";
+import { Flex, Heading, Link, HStack, Box } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
-import { useEffect } from "react";
+import { useApolloClient } from "@apollo/client";
 
 const STATUS = gql`
   query {
@@ -30,17 +28,13 @@ const STATUS = gql`
 
 function App() {
   let { loading, data } = useQuery(STATUS);
-  // const [loggedIn, setLoggedIn] = useState(false);
-  // const history = useHistory();
-
-  useEffect(() => {}, [data]);
+  const apolloClient = useApolloClient();
 
   if (loading) {
+    console.log("Loading...");
     return <p>Loading...</p>;
   }
-  // if (error) {
-  //   history.push("/login");
-  // }
+
   const routes = !data ? (
     <Switch>
       <Route path="/login" exact component={Login} />
@@ -67,16 +61,13 @@ function App() {
     </Switch>
   );
 
-  const logOutHandler = (e) => {
+  const logOutHandler = async (e) => {
     localStorage.removeItem("token");
-    // data = null;
-    // setLoggedIn(false);
-    // history.replace("/login");
-    // return <Redirect to="/login" />;
+    await apolloClient.resetStore();
   };
 
   return (
-    <div className="App">
+    <Box className="App">
       <Flex justifyContent="space-between" p={4} mb={12}>
         <Heading as={ReactrouterLink} to="/" color="teal">
           PostNode
@@ -95,7 +86,7 @@ function App() {
         </HStack>
       </Flex>
       {routes}
-    </div>
+    </Box>
   );
 }
 
