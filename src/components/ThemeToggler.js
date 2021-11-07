@@ -1,6 +1,6 @@
 // Chakra ui theme toggler
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { useColorMode, Box, IconButton } from "@chakra-ui/react";
+import { useColorMode, IconButton } from "@chakra-ui/react";
 
 export default function ThemeToggler() {
   const { colorMode, toggleColorMode } = useColorMode();

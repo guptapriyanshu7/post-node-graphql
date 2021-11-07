@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { gql, useLazyQuery } from "@apollo/client";
 import { Link as ReactRouterLink, Redirect } from "react-router-dom";
 import {

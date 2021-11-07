@@ -1,15 +1,7 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
 import { useParams } from "react-router";
-import {
-  Center,
-  Container,
-  Heading,
-  Box,
-  Text,
-  VStack,
-  Stack,
-} from "@chakra-ui/layout";
+import { Heading, Box, Text, Stack } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/image";
 
 const SINGLEPOST = gql`
@@ -42,9 +34,11 @@ function SinglePost() {
   return (
     <Stack spacing={12}>
       <Box>
-        <Heading>{data.post.title}</Heading>- Created by{" "}
-        <b style={{ color: "teal" }}>{data.post.creator.name}</b> on{" "}
-        {new Date(data.post.createdAt).toLocaleDateString("en-IN")}
+        <Heading>{data.post.title}</Heading>
+        <span>
+          - Created by <b style={{ color: "teal" }}>{data.post.creator.name}</b>{" "}
+          on {new Date(data.post.createdAt).toLocaleDateString("en-IN")}
+        </span>
       </Box>
       <Image
         src={`http://localhost:8080/images/${data.post.imageUrl}`}

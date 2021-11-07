@@ -6,7 +6,7 @@ import {
   Link as ReactrouterLink,
   Route,
   Switch,
-  useHistory,
+  // useHistory,
   Redirect,
 } from "react-router-dom";
 // import { useState } from "react";
@@ -15,7 +15,7 @@ import CreatePost from "./components/CreatePost";
 import EditPost from "./components/EditPost";
 import { gql, useQuery } from "@apollo/client";
 import ThemeToggler from "./components/ThemeToggler";
-import { Flex, Heading, Box, Link, HStack } from "@chakra-ui/layout";
+import { Flex, Heading, Link, HStack } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
 import { useEffect } from "react";
 
@@ -29,9 +29,9 @@ const STATUS = gql`
 `;
 
 function App() {
-  let { loading, error, data } = useQuery(STATUS);
+  let { loading, data } = useQuery(STATUS);
   // const [loggedIn, setLoggedIn] = useState(false);
-  const history = useHistory();
+  // const history = useHistory();
 
   useEffect(() => {}, [data]);
 
@@ -52,7 +52,10 @@ function App() {
   ) : (
     <Switch>
       <Route path="/" exact component={Posts} />
-      <Route path="/login" path="/signup" exact>
+      <Route path="/login" exact>
+        <Redirect to="/" />
+      </Route>
+      <Route path="/signup" exact>
         <Redirect to="/" />
       </Route>
       <Route path="/create" exact component={CreatePost} />
@@ -78,7 +81,7 @@ function App() {
         <Heading as={ReactrouterLink} to="/" color="teal">
           PostNode
         </Heading>
-        <HStack experimental_spaceX={8}>
+        <HStack spacing={8}>
           <ThemeToggler />
           {data && (
             <>
