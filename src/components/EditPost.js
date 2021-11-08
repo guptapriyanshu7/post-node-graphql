@@ -17,6 +17,7 @@ import {
   Textarea,
   Image,
 } from "@chakra-ui/react";
+import { domain, httpSecure } from "..";
 
 const UPDATEPOST = gql`
   mutation UpdatePost($id: ID!, $postInput: PostUpdateData!) {
@@ -167,8 +168,10 @@ function EditForm({ id, title, content, previousimageUrl }) {
                   src={
                     imageUrl
                       ? imageUrl
-                      : `http://localhost:8080/images/${previousimageUrl}`
+                      : `${httpSecure}://${domain}/images/${previousimageUrl}`
                   }
+                  fallbackSrc="https://i.pinimg.com/originals/1c/aa/c5/1caac55143e3e11461c6ae5962403deb.jpg"
+                  ignoreFallback={imageUrl !== null}
                   boxSize="sm"
                   mt={6}
                 />

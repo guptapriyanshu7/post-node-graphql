@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { gql, useMutation } from "@apollo/client";
-import { Link as ReactRouterLink, Redirect } from "react-router-dom";
+import { gql, useApolloClient, useMutation } from "@apollo/client";
+import { Link as ReactRouterLink } from "react-router-dom";
 import {
   Box,
   Heading,
@@ -38,18 +38,11 @@ function Login() {
 
   const bg = useColorModeValue("gray.50", "gray.700");
 
-  // let authSuccess = useRef(false);
-
-  // useEffect(() => {
-  //   return () => {
-  //     setAuth(authSuccess.current);
-  //   };
-  // }, [setAuth]);
+  const apolloClient = useApolloClient();
 
   if (data) {
     localStorage.setItem("token", data.login.token);
-    // authSuccess.current = true;
-    return <Redirect to="/" />;
+    apolloClient.resetStore();
   }
 
   return (

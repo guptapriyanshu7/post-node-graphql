@@ -16,8 +16,17 @@ import { BrowserRouter } from "react-router-dom";
 import { createUploadLink } from "apollo-upload-client";
 import { ChakraProvider } from "@chakra-ui/react";
 
+export const domain =
+  process.env.NODE_ENV === "production"
+    ? "post-node-graphql.herokuapp.com"
+    : "localhost:8080";
+
+const wsSecure = process.env.NODE_ENV === "production" ? "wss" : "ws";
+export const httpSecure =
+  process.env.NODE_ENV === "production" ? "https" : "http";
+
 const httpLink = createUploadLink({
-  uri: "http://localhost:8080/graphql",
+  uri: `${httpSecure}://${domain}/graphql`,
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -31,7 +40,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const wsLink = new WebSocketLink({
-  uri: "ws://localhost:8080/graphql",
+  uri: `${wsSecure}://${domain}/graphql`,
   options: {
     reconnect: true,
   },

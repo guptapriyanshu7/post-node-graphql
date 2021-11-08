@@ -3,6 +3,7 @@ import { gql, useQuery } from "@apollo/client";
 import { useParams } from "react-router";
 import { Heading, Box, Text, Stack } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/image";
+import { domain, httpSecure } from "..";
 
 const SINGLEPOST = gql`
   query SinglePost($id: ID!) {
@@ -41,7 +42,8 @@ function SinglePost() {
         </span>
       </Box>
       <Image
-        src={`http://localhost:8080/images/${data.post.imageUrl}`}
+        src={`${httpSecure}://${domain}/images/${data.post.imageUrl}`}
+        fallbackSrc="https://i.pinimg.com/originals/1c/aa/c5/1caac55143e3e11461c6ae5962403deb.jpg"
         boxSize="md"
         alignSelf="center"
       />

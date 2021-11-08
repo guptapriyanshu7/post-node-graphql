@@ -5,6 +5,7 @@ import { Image } from "@chakra-ui/image";
 import { Box, Center, Heading, HStack, Link, Text } from "@chakra-ui/layout";
 import { useEffect, useRef, useState } from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
+import { domain, httpSecure } from "..";
 import Status from "./Status";
 
 const STATUS = gql`
@@ -70,8 +71,8 @@ function PostsPage() {
           subscribeToMore({
             document: POST_SUBSCRIPTION,
             updateQuery: (prev, { subscriptionData }) => {
-              console.log(subscriptionData);
-              console.log(prev);
+              // console.log(subscriptionData);
+              // console.log(prev);
               if (!subscriptionData.data) return prev;
               const newPostItem = subscriptionData.data.postCreated;
               const updatePostsArray = [...prev.getPosts.posts, newPostItem];
@@ -153,20 +154,24 @@ function PostsMap({ posts }) {
       >
         <Box overflow="hidden" borderStartRadius={8}>
           <Image
-            src={`http://localhost:8080/images/${post.imageUrl}`}
+            src={`${httpSecure}://${domain}/images/${post.imageUrl}`}
+            fallbackSrc="https://i.pinimg.com/originals/1c/aa/c5/1caac55143e3e11461c6ae5962403deb.jpg"
             boxSize={40}
             _hover={{ transform: "scale(1.05)" }}
             transitionDuration="0.5s"
             overflow="hidden"
           />
         </Box>
-        <Center flex="1" flexDir="column">
+        <Center flex="1" flexDir="column" px={8}>
           <Heading fontSize="xl">{post.title}</Heading>
-          <span style={{ color: "gray" }}>
-            - Posted by <b style={{ color: "teal" }}>{post.creator.name}</b> on{" "}
-            {new Date(post.createdAt).toLocaleDateString("en-IN")}
+          <span>
+            - Posted by{" "}
+            <Text as="b" color="teal.400">
+              {post.creator.name}
+            </Text>{" "}
+            on {new Date(post.createdAt).toLocaleDateString("en-IN")}
           </span>
-          <Text>{post.content.substr(0, 200) + "..."}</Text>
+          <Text>{post.content.substr(0, 150) + "..."}</Text>
           <HStack spacing={8}>
             <Link as={ReactRouterLink} to={`/${post._id}`} color="teal">
               View
